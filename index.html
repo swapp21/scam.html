@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For Tanu ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 50px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+  margin: 6px 0;
+}
+
+.question {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.button-area {
+  position: relative;
+  height: 120px; /* Important: fixed space for movement */
+  margin-top: 30px;
+}
+
+button {
+  padding: 12px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#yes {
+  background: white;
+  color: #ff4d88;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+#yes:hover {
+  transform: scale(1.1);
+}
+
+#no {
+  background: #333;
+  color: white;
+  position: absolute;
+  left: 60%;
+  top: 40%;
+}
+.heart {
+  position: fixed;
+  top: -10px;
+  color: white;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+
+/* YES Button Glow Animation */
+#yes {
+  background: white;
+  color: #ff4d88;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(255,255,255,0.6);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(255,255,255,1),
+                0 0 40px rgba(255,77,136,0.8);
+  }
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: fallConfetti linear forwards;
+}
+
+@keyframes fallConfetti {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Tanu ❤️</h1>
+  <p>Your light brown eyes make you look sooo beautiful 😍</p>
+  <p>Every time I look at you, I fall for you all over again 🥺</p>
+  <p class="question">Will you be my Valentine? 💖</p>
+
+  <div class="button-area" id="area">
+    <button id="yes" onclick="yesClicked()">Yes 💘</button>
+    <button id="no">No 😜</button>
+  </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const area = document.getElementById("area");
+
+// Fast movement inside card
+area.addEventListener("mousemove", function(e) {
+  const rect = noBtn.getBoundingClientRect();
+
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  const distanceX = Math.abs(e.clientX - centerX);
+  const distanceY = Math.abs(e.clientY - centerY);
+
+  if (distanceX < 100 && distanceY < 60) {
+    moveFast();
+  }
+});
+
+function moveFast() {
+  const maxX = area.clientWidth - noBtn.offsetWidth;
+  const maxY = area.clientHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
+
+function yesClicked() {
+
+  // Smooth fade effect
+  document.body.style.transition = "opacity 0.5s ease";
+  document.body.style.opacity = "0";
+
+  setTimeout(() => {
+    document.body.innerHTML = `
+      <div style="text-align:center; color:white; font-family:Poppins;">
+        <h1 style="font-family:'Dancing Script'; font-size:50px;">YAYYY TANU!!! ❤️😍</h1>
+        <p style="font-size:25px;">You just made Swapnil the happiest guy alive 🥹💕</p>
+        <p style="font-size:22px;">I promise to always admire those beautiful brown eyes forever. 😘</p>
+        <p style="font-size:19px;">Once you come back from Indore, we will celebrate valentine's day together and have candle night dinner with tasty food. 😘</p>
+      </div>
+    `;
+    document.body.style.opacity = "1";
+
+    startHearts();
+    launchConfetti();
+  }, 500);
+}
+
+function startHearts() {
+  setInterval(function(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+}
+
+function launchConfetti() {
+  for (let i = 0; i < 120; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.backgroundColor = randomColor();
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    confetti.style.width = (Math.random() * 8 + 5) + "px";
+    confetti.style.height = confetti.style.width;
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 5000);
+  }
+}
+
+function randomColor() {
+  const colors = ["#ff4d88", "#ffffff", "#ffd700", "#00e1ff", "#ff7eb3"];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+</script>
+
+
+</body>
+</html>
